@@ -5,7 +5,7 @@ import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 var CommandMenu = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
 		tgbotapi.NewKeyboardButton("/random"),
-		tgbotapi.NewKeyboardButton("/question"),
+		tgbotapi.NewKeyboardButton("/qst"),
 		tgbotapi.NewKeyboardButton("/xp"),
 	),
 )

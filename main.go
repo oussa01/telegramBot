@@ -72,7 +72,7 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 
 	switch text {
-	case "/question":
+	case "/qst":
 		if user.CurrentChallenge != nil {
 			bot.Send(tgbotapi.NewMessage(chatID, "❗ Finish your current challenge or type /exit first."))
 			return
@@ -96,7 +96,7 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			msg.ReplyMarkup = utils.CommandMenu
 			bot.Send(msg)
 		} else {
-			msg := tgbotapi.NewMessage(chatID, "No active challenge. Use /question or /random to start one.")
+			msg := tgbotapi.NewMessage(chatID, "No active challenge. Use /qst or /random to start one.")
 			msg.ReplyMarkup = utils.CommandMenu
 			bot.Send(msg)
 		}
@@ -124,18 +124,18 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			bot.Send(msg)
 		} else {
 			user.Attempts++
-			user.XP -= 2
+			user.XP -= 1
 			if user.Attempts >= 3 && user.CurrentChallenge.Hint != "" {
 				bot.Send(tgbotapi.NewMessage(chatID, "❌ Wrong again! Hint: "+user.CurrentChallenge.Hint+" (-2 XP)"))
 			} else {
-				bot.Send(tgbotapi.NewMessage(chatID, "❌ Incorrect! Try again. (-2 XP)"))
+				bot.Send(tgbotapi.NewMessage(chatID, "❌ Incorrect! Try again. (-1 XP)"))
 			}
 		}
 		return
 	}
 
 	// Default response
-	msg := tgbotapi.NewMessage(chatID, "👉 Use /question or /random to play! Max 3 missions/day.")
+	msg := tgbotapi.NewMessage(chatID, "👉 Use /qst or /random to play! Max 3 missions/day.")
 	msg.ReplyMarkup = utils.CommandMenu
 	bot.Send(msg)
 }
