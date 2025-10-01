@@ -119,6 +119,27 @@ var Challenges = []Challenge{
 	{"Record yourself saying a cheesy pick-up line.", "done", "Dare", "No hint"},
 	{"Send a photo of your hand in a 'kiss' pose.", "done", "Dare", "No hint"},
 	{"Send a text confessing the silliest secret you’ve kept.", "done", "Dare", "No hint"},
+	// Quiz (medium-hard, English/Arabic mix)
+	{"Which element has the chemical symbol 'Fe'?", "iron", "Quiz", "It’s used to make steel."},
+	{"Who painted the Mona Lisa?", "leonardo da vinci", "Quiz", "Famous Italian Renaissance artist."},
+	{"في أي عام بدأ الحرب العالمية الثانية؟", "1939", "Quiz", "It started قبل الهولوكوست."},
+	{"What is the square root of 225?", "15", "Quiz", "It’s a perfect square."},
+	{"Which planet has the most moons?", "saturn", "Quiz", "It has the famous rings."},
+	{"ما هو أطول نهر في العالم؟", "nile", "Quiz", "يمر عبر إفريقيا الشمالية."},
+	{"What is the hardest natural substance on Earth?", "diamond", "Quiz", "Used in jewelry and drills."},
+	{"Who developed the theory of general relativity?", "einstein", "Quiz", "Famous physicist with E=mc^2."},
+	{"كم عدد الدول العربية في قارة إفريقيا؟", "10", "Quiz", "Think of North African countries."},
+	{"Which language has the most native speakers worldwide?", "mandarin", "Quiz", "Not English or Spanish."},
+	{"Who wrote 'One Hundred Years of Solitude'?", "gabriel garcia marquez", "Quiz", "Famous Colombian author."},
+	{"ما هي عاصمة اليابان؟", "tokyo", "Quiz", "أكبر مدينة في اليابان."},
+	{"What is the smallest prime number greater than 50?", "53", "Quiz", "Prime numbers only."},
+	{"Which chemical element is a noble gas and used in neon signs?", "neon", "Quiz", "It glows brightly."},
+	{"في أي سنة نزل أول إنسان على القمر؟", "1969", "Quiz", "Neil Armstrong was the first."},
+	{"Which organ in the human body produces insulin?", "pancreas", "Quiz", "Regulates blood sugar."},
+	{"ما هو الحيوان الذي يمكنه البقاء دون ماء لأطول فترة؟", "camel", "Quiz", "يعيش في الصحراء."},
+	{"What is the value of π (Pi) up to 3 decimal places?", "3.142", "Quiz", "Used in circle calculations."},
+	{"Which country won the first FIFA World Cup?", "uruguay", "Quiz", "Year: 1930."},
+	{"من هو مؤلف كتاب 'الأمير'؟", "machiavelli", "Quiz", "فيلسوف إيطالي."},
 }
 
 func FilterByType(challenges []Challenge, answered map[string]bool, mode string) []Challenge {

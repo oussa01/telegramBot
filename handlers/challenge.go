@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"math/rand"
-	"time"
 	"secSender/m/v2/models"
+	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -38,7 +38,7 @@ func SendChallengeForMode(bot *tgbotapi.BotAPI, user *models.User, mode string, 
 
 func SendRandomChallenge(bot *tgbotapi.BotAPI, user *models.User, chatID int64, exitKeyboard tgbotapi.ReplyKeyboardMarkup) {
 	if !user.CanPlayToday() {
-		bot.Send(tgbotapi.NewMessage(chatID, "⏳ You’ve reached your daily limit!"))
+		bot.Send(tgbotapi.NewMessage(chatID, "⏳ You’ve reached your daily limit! arjaa ghodwa hobby"))
 		return
 	}
 

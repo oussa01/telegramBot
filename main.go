@@ -10,6 +10,7 @@ import (
 	"secSender/m/v2/models"
 	"secSender/m/v2/utils"
 	"strconv"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -48,6 +49,26 @@ func main() {
 
 	log.Println("Bot running on port", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+// Get or create a user session
+func getUser(userID int) *models.User {
+	user, exists := users[userID]
+	if !exists {
+		user = &models.User{
+			ID:       userID,
+			Answered: make(map[string]bool),
+			XP:       0,
+			Attempts: 0,
+		}
+		users[userID] = user
+	}
+	return user
+}
+
+// Simple string matching
+func matchAnswer(given, expected string) bool {
+	return strings.TrimSpace(strings.ToLower(given)) == strings.TrimSpace(strings.ToLower(expected))
 }
 
 func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -105,12 +126,12 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	// Answer handling
 	if user.CurrentChallenge != nil {
-		if models.MatchAnswer(text, user.CurrentChallenge.Answer) {
+		if matchAnswer(text, user.CurrentChallenge.Answer) {
 			user.Answered[user.CurrentChallenge.Question] = true
 			user.XP += 10
-			user.MarkPlayed()
 			user.CurrentChallenge = nil
 			user.Attempts = 0
+			user.MarkPlayed()
 
 			progress := len(user.Answered)
 			total := len(models.Challenges)
@@ -125,11 +146,11 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		} else {
 			user.Attempts++
 			user.XP -= 1
+			hintMsg := ""
 			if user.Attempts >= 3 && user.CurrentChallenge.Hint != "" {
-				bot.Send(tgbotapi.NewMessage(chatID, "❌ Wrong again! Hint: "+user.CurrentChallenge.Hint+" (-2 XP)"))
-			} else {
-				bot.Send(tgbotapi.NewMessage(chatID, "❌ Incorrect! Try again. (-1 XP)"))
+				hintMsg = "\n💡 Hint: " + user.CurrentChallenge.Hint + " (-2 XP)"
 			}
+			bot.Send(tgbotapi.NewMessage(chatID, "❌ Incorrect! Try again. (-1 XP)"+hintMsg))
 		}
 		return
 	}
