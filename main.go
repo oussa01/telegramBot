@@ -148,7 +148,7 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			user.XP -= 1
 			hintMsg := ""
 			if user.Attempts >= 3 && user.CurrentChallenge.Hint != "" {
-				hintMsg = "\n💡 Hint: " + user.CurrentChallenge.Hint + " (-2 XP)"
+				hintMsg = "\n💡 Hint: " + user.CurrentChallenge.Hint
 			}
 			bot.Send(tgbotapi.NewMessage(chatID, "❌ Incorrect! Try again. (-1 XP)"+hintMsg))
 		}
