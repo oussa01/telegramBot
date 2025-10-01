@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"secSender/m/v2/config"
 	"secSender/m/v2/handlers"
 	"secSender/m/v2/models"
 	"secSender/m/v2/utils"
+	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -26,7 +26,7 @@ func main() {
 	bot.Debug = false
 
 	// Webhook URL (Railway provides HTTPS)
-	webhookURL := "https://YOUR_RAILWAY_APP_URL/" + bot.Token
+	webhookURL := "telegrambot-production-4840.up.railway.app/" + bot.Token
 	_, err = bot.SetWebhook(tgbotapi.NewWebhook(webhookURL))
 	if err != nil {
 		log.Panic(err)
@@ -67,7 +67,7 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	// Mode selection
 	if user.SelectingMode {
 		user.SelectingMode = false
-		handlers.SendChallengeForMode(bot, user, text, chatID,utils.ExitMenu)
+		handlers.SendChallengeForMode(bot, user, text, chatID, utils.ExitMenu)
 		return
 	}
 
@@ -83,7 +83,7 @@ func handleUpdate(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		user.SelectingMode = true
 		return
 	case "/random":
-		handlers.SendRandomChallenge(bot, user, chatID,utils.ExitMenu)
+		handlers.SendRandomChallenge(bot, user, chatID, utils.ExitMenu)
 		return
 	case "/xp":
 		bot.Send(tgbotapi.NewMessage(chatID, "⭐ Your XP: "+strconv.Itoa(user.XP)))
